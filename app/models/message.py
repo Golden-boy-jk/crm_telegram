@@ -7,6 +7,11 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 
+class MessageDirection(str):
+    INCOMING = "incoming"
+    OUTGOING = "outgoing"
+
+
 class Message(Base):
     __tablename__ = "messages"
 
