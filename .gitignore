@@ -1,14 +1,10 @@
-# Секреты и окружение
 .env
-# Виртуальное окружение
-.venv/
-env/
-# Python
+.env.*
 __pycache__/
 *.pyc
-# Логи и временные
-*.log
-tmp/
-# IDE
+.venv/
 .idea/
 .vscode/
+*.db
+*.sqlite
+*.sqlite3

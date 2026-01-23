@@ -1,3 +1,6 @@
+from pathlib import Path
+import app.db.models  # noqa: F401
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -7,11 +10,9 @@ from app.routers import auth, bots, chats, contacts, settings as settings_router
 
 app = FastAPI(title=settings.app_name, debug=settings.debug)
 
-app.mount(
-    f"/{settings.static_dir}",
-    StaticFiles(directory=settings.static_dir),
-    name="static",
-)
+static_dir = Path(settings.static_dir)
+if static_dir.exists():
+    app.mount(f"/{settings.static_dir}", StaticFiles(directory=static_dir), name="static")
 
 templates = Jinja2Templates(directory=settings.templates_dir)
 

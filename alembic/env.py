@@ -6,26 +6,17 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-# Конфиг Alembic, берётся из alembic.ini
 config = context.config
 
-# Логирование Alembic (опционально)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# === Импорт нашего приложения ===
 from app.core.config import settings
 from app.db.base import Base
+import app.db.models  # noqa: F401
 
-# Важно: импортируем модели, чтобы Alembic видел таблицы
-from app.models import user, bot, contact, chat, message, settings as settings_model, webhook_event
-
-# Target metadata для autogenerate
 target_metadata = Base.metadata
-
-# Подменяем sqlalchemy.url на URL из настроек приложения
 config.set_main_option("sqlalchemy.url", settings.database_url)
-
 
 def run_migrations_offline() -> None:
     """

@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: crm_app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  db:
+    image: postgres:15
+    container_name: crm_db
+    environment:
+      POSTGRES_DB: crm_telegram
+      POSTGRES_USER: crm_user
+      POSTGRES_PASSWORD: crm_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - crm_pgdata:/var/lib/postgresql/data
+
+volumes:
+  crm_pgdata:

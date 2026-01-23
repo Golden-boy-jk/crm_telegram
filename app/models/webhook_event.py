@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import BigInteger, Boolean, JSON, String, UniqueConstraint
+from sqlalchemy import BigInteger, Boolean, ForeignKey, JSON, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -13,7 +13,7 @@ class WebhookEvent(Base):
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    bot_id: Mapped[int] = mapped_column()
+    bot_id: Mapped[int] = mapped_column(ForeignKey("bots.id"), index=True)
     update_id: Mapped[int] = mapped_column(BigInteger)
     processed: Mapped[bool] = mapped_column(Boolean, default=False)
     payload: Mapped[dict] = mapped_column(JSON)

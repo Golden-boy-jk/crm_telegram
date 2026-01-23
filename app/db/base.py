@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-
+import app.models
 
 class Base(DeclarativeBase):
     created_at: Mapped[datetime] = mapped_column(
