@@ -1,10 +1,13 @@
+from typing import TYPE_CHECKING, Optional
 from datetime import datetime
-from typing import Optional
 
 from sqlalchemy import BigInteger, Boolean, DateTime, JSON, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.chat import Chat
 
 
 class MessageDirection(str):
@@ -20,7 +23,9 @@ class Message(Base):
 
     direction: Mapped[str] = mapped_column(String(20))
     content_text: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    content_image_path: Mapped[Optional[str]] = mapped_column(String(512), nullable=True)
+    content_image_path: Mapped[Optional[str]] = mapped_column(
+        String(512), nullable=True
+    )
 
     telegram_message_id: Mapped[Optional[int]] = mapped_column(
         BigInteger, index=True, nullable=True

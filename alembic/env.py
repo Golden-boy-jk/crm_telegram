@@ -18,6 +18,7 @@ import app.db.models  # noqa: F401
 target_metadata = Base.metadata
 config.set_main_option("sqlalchemy.url", settings.database_url)
 
+
 def run_migrations_offline() -> None:
     """
     Запуск миграций в offline-режиме.

@@ -5,6 +5,7 @@ Revises: 86027a3d177e
 Create Date: 2026-01-23 18:53:47
 
 """
+
 from alembic import op
 
 # revision identifiers, used by Alembic.
@@ -26,4 +27,6 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_constraint("fk_webhook_events_bot_id_bots", "webhook_events", type_="foreignkey")
+    op.drop_constraint(
+        "fk_webhook_events_bot_id_bots", "webhook_events", type_="foreignkey"
+    )

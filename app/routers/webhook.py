@@ -19,7 +19,9 @@ async def telegram_webhook(
     if update_id is None:
         raise HTTPException(status_code=400, detail="payload.update_id is required")
 
-    ev = WebhookEvent(bot_id=bot_id, update_id=update_id, payload=payload, processed=False)
+    ev = WebhookEvent(
+        bot_id=bot_id, update_id=update_id, payload=payload, processed=False
+    )
     session.add(ev)
 
     try:

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, WebSocket
+
 # from app.core.deps import get_current_user
 from app.ws.manager import WebSocketManager
 
@@ -12,9 +13,9 @@ async def get_current_user() -> None:
 
 
 @router.websocket("/ws/chat/{chat_id}")
-async def chat_ws(websocket: WebSocket,
-                  chat_id: int,
-                  _user=Depends(get_current_user)) -> None:
+async def chat_ws(
+    websocket: WebSocket, chat_id: int, _user=Depends(get_current_user)
+) -> None:
     await manager.connect(chat_id, websocket)
     try:
         while True:

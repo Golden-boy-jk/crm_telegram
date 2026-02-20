@@ -8,9 +8,7 @@ from app.db.base import Base
 
 class WebhookEvent(Base):
     __tablename__ = "webhook_events"
-    __table_args__ = (
-        UniqueConstraint("bot_id", "update_id", name="uq_bot_update"),
-    )
+    __table_args__ = (UniqueConstraint("bot_id", "update_id", name="uq_bot_update"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     bot_id: Mapped[int] = mapped_column(ForeignKey("bots.id"), index=True)
